@@ -30,7 +30,7 @@
 *	}
 * </code>
 * </p>
-* @module gallery-colorpicker
+* @module colorpicker
 * @requires node, event, widget, classnamemanager
 */
 
@@ -726,8 +726,8 @@ Y.extend(ColorPicker, Y.Widget, {
 		ctx.lineTo(width + this.barPaddingX * 2, y + 2.5);
 		ctx.lineTo(width + this.barPaddingX, y);
 
-		ctx.strokeStyle = "rgb(255, 255, 255)";
-		ctx.fillStyle = "rgb(255, 255, 255)";
+		ctx.strokeStyle = "rgb(0, 0, 0)";
+		ctx.fillStyle = "rgb(0, 0, 0)";
 		ctx.stroke();
 		ctx.fill();
 	},

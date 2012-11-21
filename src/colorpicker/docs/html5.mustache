@@ -1,0 +1,101 @@
+<style scoped>
+	#resultContainer label {
+		margin: 0;
+		padding: 0;
+		font-size: smaller;
+	}
+	#hslResult, #hslIntResult, #rgbResult, #hexResult {
+		margin: 5px 20px;
+		font-weight: bold;
+	}
+	#container {
+		width: 924px;
+		background-color: #ccc;
+		border-radius: 15px;
+		-webkit-border-radius: 15px;
+		-moz-border-radius: 15px;
+		margin: 0 auto;
+		padding: 20px;
+	}
+	#picker {
+		width: 300px;
+		float: left;
+	}
+	#resultContainer {
+		width: 500px;
+		float: left;
+		margin-left: 20px;
+	}
+	#updateColors {
+		display: inline-block;
+		margin: 10px 0px;
+		background-color: #666;
+		color: #fff;
+		padding: 5px;
+		padding-left: 10px;
+		padding-right: 10px;
+		border-radius: 5px;
+		-webkit-border-radius: 5px;
+		-moz-border-radius: 5px;
+		text-decoration: none;
+	}
+	#updateColors:hover {
+		background-color: #999;
+	}
+	#palette {
+		clear: both;
+		padding: 10px 0px;
+	}
+	.clear-fix {
+		clear: both;
+	}
+</style>
+
+<div class='intro'>
+	<p>The ColorPicker widget lets you select colors using the HSL colorspace.</p>
+</div>
+
+<div class='example yui3-skin-sam'>
+	{{>html5-source}}
+</div>
+
+<h2>Source</h2>
+
+```
+<script type="text/javascript">
+	YUI({}).use('gallery-colorpicker', function (Y) {
+
+		// create a picker and render it
+		var picker = new Y.ColorPicker();
+		picker.render('#picker');
+
+		var palette = new Y.ColorPalette();
+		palette.render('#palette');
+
+		palette.on('palette:selected',function(ev) {
+			var hsl = ev.hsl;
+			picker.set('hsl',hsl);
+		},this);
+
+		function updateColors() {
+			var hsl = picker.get('hsl'),
+				hslInt = picker.get('hslInt'),
+				rgb = picker.get('rgb'),
+				hex = picker.get('hex');
+			Y.one('#hslResult').set('innerHTML',"H:" + hsl.h.toFixed(3) +
+				" S:" + hsl.s.toFixed(3) + " L: " + hsl.l.toFixed(3));
+			Y.one('#hslIntResult').set('innerHTML',"H:" + hslInt.h +
+				" S:" + hslInt.s + " L: " + hslInt.l);
+			Y.one('#rgbResult').set('innerHTML',"R:" + rgb.r + " G:" + rgb.g + " B: " + rgb.b);
+			Y.one('#hexResult').set('innerHTML',"HEX: #" + hex.toUpperCase());
+			palette.addColor(hsl);
+		}
+		// example of retrieving the selected value from the picker
+		Y.one('#updateColors').on('click',function(ev) {
+			ev.halt();
+			updateColors();
+		});
+		updateColors();
+	});
+</script>
+```

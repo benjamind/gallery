@@ -1,0 +1,8 @@
+{
+    "gallery-colorpicker": {
+        "requires": [
+        	"node", "event", "widget", "classnamemanager"
+        ],
+        "skinnable": true
+    }
+}

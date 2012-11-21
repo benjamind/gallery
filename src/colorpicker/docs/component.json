@@ -6,5 +6,15 @@
 
     "tags": [ "gallery" ],
 
-    "examples": []
+    "use": "'gallery-colorpicker','node'",
+    "examples": [
+        {
+            "name": "html5",
+            "displayName": "ColorPicker Example",
+            "modules": ["gallery-colorpicker"],
+            "description": "This example illustrates the use of the ColorPicker module.",
+	        "useModules": ["gallery-colorpicker","node"],
+            "hideTableOfContents": true
+        }
+    ]
 }
