@@ -5,7 +5,7 @@
  * the user scrolls an inner-scroll area but then the whole page moves as the
  * scroll reaches the bottom of the inner-scroll area.
  *
- * @module gallery-node-scrollfix
+ * @module gallery-scrollfix
  **/
 
 /**
@@ -18,7 +18,7 @@
 function NodeScrollFix(/*config*/) {
 	NodeScrollFix.superclass.constructor.apply(this, arguments);
 }
-NodeScrollFix.NAME = 'gallery-node-scrollfix';
+NodeScrollFix.NAME = 'gallery-scrollfix';
 NodeScrollFix.NS = 'scrollfix';
 NodeScrollFix.ATTRS = {
 	/**
@@ -45,7 +45,7 @@ NodeScrollFix.ATTRS = {
 Y.extend(NodeScrollFix, Y.Plugin.Base, {
     initializer: function(/*config*/) {
 		var host = this.get('host');
-			
+
 		host.on('mouseenter',function(/*ev*/) {
 			var target = this.get('target');
 			this.mouseWheelListener = target.on('mousewheel',function(ev) {

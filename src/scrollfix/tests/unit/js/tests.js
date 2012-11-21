@@ -1,6 +1,6 @@
 YUI.add('module-tests', function(Y) {
 
-    var suite = new Y.Test.Suite('gallery-node-scrollfix');
+    var suite = new Y.Test.Suite('gallery-scrollfix');
 
     suite.add(new Y.Test.Case({
         name: 'Automated Tests',
@@ -48,4 +48,4 @@ YUI.add('module-tests', function(Y) {
     Y.Test.Runner.add(suite);
 
 
-},'', { requires: [ 'test', 'node', 'node-event-simulate', 'gallery-node-scrollfix' ] });
+},'', { requires: [ 'test', 'node', 'node-event-simulate', 'gallery-scrollfix' ] });

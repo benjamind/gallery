@@ -20,7 +20,7 @@ scroll reaches the bottom of the inner-scroll area.</p>
 
 ```
 <script>
-YUI().use('node','gallery-node-scrollfix', function (Y) {
+YUI().use('node','gallery-scrollfix', function (Y) {
 	var scroller = Y.one('.my-scrollable-div');
 	scroller.plug(Y.Plugin.NodeScrollFix);
 });
@@ -31,7 +31,7 @@ YUI().use('node','gallery-node-scrollfix', function (Y) {
 <p>ScrollFix works by attaching a MouseWheel event listener to the document.body by default. It does this whenever your mouse enters the host node. If you wish to have ScrollFix listen on a different element than the document body then you can use the `target` attribute. It is unlikely you'll need to do this, but just in case here's how:</p>
 ```
 <script>
-YUI().use('node','gallery-node-scrollfix', function (Y) {
+YUI().use('node','gallery-scrollfix', function (Y) {
 	var scroller = Y.one('.my-scrollable-div');
 	scroller.plug(Y.Plugin.NodeScrollFix,{target:Y.one('.my-containing-div')});
 });

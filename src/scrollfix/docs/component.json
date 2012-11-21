@@ -1,18 +1,18 @@
 {
-    "name"       : "gallery-node-scrollfix",
+    "name"       : "gallery-scrollfix",
     "displayName": "Node ScrollFix",
     "description": "ScrollFix is a Node plugin that can be used to stop scroll events from escaping an inner scroll area when the scroll reaches the bottom of the area",
     "author"     : [ "benjamind" ],
 
     "tags": [ "gallery", "node", "plugin", "scrolling" ],
-    "use": "'gallery-node-scrollfix','node'",
+    "use": "'gallery-scrollfix','node'",
     "examples": [
         {
             "name": "basic-example",
             "displayName": "Node ScrollFix Basic Example",
-            "modules": ["gallery-node-scrollfix"],
+            "modules": ["gallery-scrollfix"],
             "description": "This example illustrates the use of the Node ScrollFix module.",
-	        "useModules": ["gallery-node-scrollfix","node"],
+	        "useModules": ["gallery-scrollfix","node"],
             "hideTableOfContents": true
         }
     ]
