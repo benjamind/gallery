@@ -1,0 +1,10 @@
+{
+    "name"       : "colorpicker",
+    "displayName": "Gallery: colorpicker",
+    "description": "The Color Picker Widget provides a HTML5 based UI for select a color from the HSL color space.",
+    "author"     : [ "benjamind" ],
+
+    "tags": [ "gallery" ],
+
+    "examples": []
+}

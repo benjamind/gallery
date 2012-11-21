@@ -1,0 +1,30 @@
+<div class="intro">
+    <p>
+    The Color Picker Widget provides a HTML5 based UI for select a color from the HSL color space.
+    </p>
+</div>
+
+<h2>Description</h2>
+
+<p>The ColorPicker module provides several classes useful for dealing with colors. The Y.Colors class provides a couple of helpful conversion methods allowing conversion between RGB and HSL color formats. The Y.ColorPalette class provides a simple color palette to store and reuse color selections. Finally the Y.ColorPicker widget provides a HTML5 based UI for selecting colors.<br>
+<br>
+<ul>
+<li><b>Note:</b> This widget uses the Canvas element and as such will not work on IE 8 and below, or older browsers.</li>
+</ul>
+<br>
+</p>
+
+```
+YUI().use('gallery-colorpicker', function(Y) {
+	// create an instance of the widget
+	var colorpicker = new Y.ColorPicker();
+	// render the widget into the #picker node
+	colorpicker.render("#picker");
+	Y.one('#getcolorbutton').on('click',function(ev) {
+		ev.halt();
+		var hex = colorpicker.get('hex');
+		// do something with the hex value....
+	});
+});
+```
+

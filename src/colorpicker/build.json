@@ -1,0 +1,11 @@
+{
+    "name": "colorpicker",
+    "builds": {
+        "gallery-colorpicker": {
+            "jsfiles": [
+                "colorpicker.js"
+            ],
+            "meta": {}
+        }
+    }
+}

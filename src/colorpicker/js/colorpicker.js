@@ -1,7 +1,7 @@
 /**
 * <p>The Color Picker Widget provides a HTML5 based UI for selecting a color
 * from the HSL color space.</p>
-* 
+*
 * <p><strong>Note:</strong> ColorPicker uses the Canvas element to render the dynamic
 * color sliders, as such it <strong>requires HTML5 support</strong>, so <em>Internet Explorer
 * versions prior to version 9 will not work with this widget</em>.</p>
@@ -87,7 +87,7 @@ var Colors = {
 		if (t < 2 / 3) { return p + (q - p) * (2 / 3 - t) * 6; }
 		return p;
 	},
-	
+
 	/**
 	* Converts HSL values in the range 0-1 to RGB format in the range 0-255.
 	* @method hslToRGB
@@ -121,7 +121,7 @@ Y.Colors = Colors;
 * ColorPicker is a widget that provides a HTML5 based canvas interface to selecting colors
 * using the HSL format. It provides a thumb from which to select colors as well as sliders
 * and text areas for manually entering values.
-* 
+*
 * You can retrieve the currently selected color through a variety of properties, allowing
 * you to select colors in HSL, RGB and Hex formats.
 *
@@ -165,7 +165,7 @@ ColorPicker.ATTRS = {
 	* @type Boolean
 	* @default true
 	*/
-	showHSL: {	
+	showHSL: {
 		value: true
 	},
 	/**
@@ -213,7 +213,7 @@ ColorPicker.ATTRS = {
 	squareHeight: {
 		value: 150
 	},
-	
+
 	/**
 	* The width of the color bars in pixels
 	* @config barWidth
@@ -232,7 +232,7 @@ ColorPicker.ATTRS = {
 	barHeight: {
 		value: 150
 	},
-	
+
 	/**
 	* The width of the color swatch in pixels
 	* @config swatchWidth
@@ -242,7 +242,7 @@ ColorPicker.ATTRS = {
 	swatchWidth: {
 		value: 110
 	},
-	
+
 	/**
 	* The height of the color swatch in pixels
 	* @config swatchHeight
@@ -252,7 +252,7 @@ ColorPicker.ATTRS = {
 	swatchHeight: {
 		value: 34
 	},
-	
+
 	/**
 	* Gets or sets the selected color of the picker using HEX notation, e.g. <code>FFFFFF</code>
 	* @config hex
@@ -302,7 +302,7 @@ ColorPicker.ATTRS = {
 			val.r = Math.min(val.r, 255);
 			val.g = Math.min(val.g, 255);
 			val.b = Math.min(val.b, 255);
-			
+
 			val.r = Math.max(val.r, 0);
 			val.g = Math.max(val.g, 0);
 			val.b = Math.max(val.b, 0);
@@ -402,7 +402,7 @@ Y.extend(ColorPicker, Y.Widget, {
 	* @default {h: 0, s: 1.0, l: 0.5}
 	*/
 	color: {h: 0, s: 1.0, l: 0.5},
-	
+
 	/**
 	* An in-memory cache of the saturation bar images. Only used if cacheBars is enabled.
 	* @property sCachePixels
@@ -410,7 +410,7 @@ Y.extend(ColorPicker, Y.Widget, {
 	* @type Object
 	*/
 	sCachePixels: {},
-	
+
 	/**
 	* An in-memory cache of the lightness bar images. Only used if cacheBars is enabled.
 	* @property lCachePixels
@@ -418,7 +418,7 @@ Y.extend(ColorPicker, Y.Widget, {
 	* @type Object
 	*/
 	lCachePixels: {},
-	
+
 	/**
 	* An in-memory cache of the color selector area. Only used if cacheBars is enabled.
 	* @property squareCachePixels
@@ -426,7 +426,7 @@ Y.extend(ColorPicker, Y.Widget, {
 	* @type Object
 	*/
 	squareCachePixels: {},
-	
+
 	/**
 	* Horizontal padding between color bars.
 	* @property barPaddingX
@@ -435,7 +435,7 @@ Y.extend(ColorPicker, Y.Widget, {
 	* @default 5
 	*/
 	barPaddingX: 5,
-	
+
 	/**
 	* Vertical padding between color bars.
 	* @property barPaddingY
@@ -444,16 +444,16 @@ Y.extend(ColorPicker, Y.Widget, {
 	* @default 5
 	*/
 	barPaddingY: 5,
-	
+
 	renderUI: function () {
 		this.contentBox = this.get('contentBox');
 		this.contentBox.addClass(this.name);
-		
+
 		this.squareCanvas = this.createCanvas(ColorPicker.CLASSNAME_SQUARE, this.get('squareWidth'), this.get('squareHeight'));
 		this.squareCanvas.id = "squareCanvas";
 		// render the current saturation level to the square canvas, iterating of H and L
 		this.renderSquare();
-		
+
 		var barWidth, barHeight, rgbColor, hexColor;
 		if (this.get('showHSLBars')) {
 			barWidth = this.get('barWidth');
@@ -472,19 +472,20 @@ Y.extend(ColorPicker, Y.Widget, {
 			this.sVal = this.createValue(ColorPicker.CLASSNAME_SVALUE, this.get('strings.sValue'), this.color.s, 3, 3, 'hslInt', 's');
 			this.lVal = this.createValue(ColorPicker.CLASSNAME_LVALUE, this.get('strings.lValue'), this.color.l, 3, 3, 'hslInt', 'l');
 		}
-		
+
 		if (this.get('showRGB')) {
 			rgbColor = this.get('rgb');
 			this.rVal = this.createValue(ColorPicker.CLASSNAME_RVALUE, this.get('strings.rValue'), rgbColor.r, 3, 3, 'rgb', 'r');
 			this.gVal = this.createValue(ColorPicker.CLASSNAME_GVALUE, this.get('strings.gValue'), rgbColor.g, 3, 3, 'rgb', 'g');
 			this.bVal = this.createValue(ColorPicker.CLASSNAME_BVALUE, this.get('strings.bValue'), rgbColor.b, 3, 3, 'rgb', 'b');
 		}
-		if (this.get('showHEX')) {				
+		if (this.get('showHEX')) {
 			hexColor = this.get('hex');
 			this.hexVal = this.createValue(ColorPicker.CLASSNAME_HEXVALUE, this.get('strings.hexValue'), hexColor, 6, 6, 'hex', null);
 		}
 	},
-	renderPixels: function (canvas, width, height, paddingX, paddingY, fixedComponent, fixedValue, componentX, componentY, startX, startY, maxX, maxY, reverse) {
+	renderPixels: function (canvas, width, height, paddingX, paddingY, fixedComponent, fixedValue,
+			componentX, componentY, startX, startY, maxX, maxY, reverse) {
 		var ctx = canvas.getContext('2d'),
 			// create some imagedata to draw into
 			pixels = ctx.createImageData(width, height),
@@ -498,11 +499,11 @@ Y.extend(ColorPicker, Y.Widget, {
 			x,
 			y,
 			rgb;
-			
+
 		hsl[fixedComponent] = fixedValue;
 		hsl[componentX] = startX;
 		hsl[componentY] = startY;
-		
+
 		if (reverse) {
 			idxInc = -1;
 			idx = pixels.data.length;
@@ -526,13 +527,13 @@ Y.extend(ColorPicker, Y.Widget, {
 		}
 		ctx.putImageData(pixels, paddingX, paddingY);
 		return pixels;
-	}, 
+	},
 	startUpdating: function () {
 		this.stopUpdating();
 		this.moveListener = Y.on('mousemove', this.onMouseMove, this.get('boundingBox'), this);
 		this.mouseUpListener = Y.on('mouseup', this.onMouseUp, document.body, this);
 		this.animTimer = Y.later(60, this, this.update, null, true);
-	}, 
+	},
 	stopUpdating: function () {
 		if (this.animTimer) {
 			this.animTimer.cancel();
@@ -546,7 +547,7 @@ Y.extend(ColorPicker, Y.Widget, {
 			this.mouseUpListener.detach();
 			this.mouseUpListener = null;
 		}
-	}, 
+	},
 	onBarMouseDown: function (ev, args) {
 		this.trackBar = args.component;
 		this.trackBarCanvas = ev.target;
@@ -556,7 +557,7 @@ Y.extend(ColorPicker, Y.Widget, {
 			// get position within the square
 			x = ev.clientX + scrollX - offXY[0],
 			y = ev.clientY + scrollY - offXY[1];
-			
+
 		this.barX = x;
 		this.barY = y;
 		this.startUpdating();
@@ -577,7 +578,7 @@ Y.extend(ColorPicker, Y.Widget, {
 			scrollX,
 			scrollY,
 			c;
-			
+
 		if (this.trackSquare) {
 			c = Y.Node.one(this.squareCanvas);
 			offXY = c.getXY();
@@ -588,7 +589,7 @@ Y.extend(ColorPicker, Y.Widget, {
 			y = ev.clientY + scrollY - offXY[1];
 			width = this.get('squareWidth');
 			height = this.get('squareHeight');
-				
+
 			x = Math.min(width, x);
 			y = Math.min(height, y);
 			y = Math.max(0, y);
@@ -605,7 +606,7 @@ Y.extend(ColorPicker, Y.Widget, {
 			y = -this.barPaddingY + ev.clientY + scrollY - offXY[1];
 			width = this.get('barWidth');
 			height = this.get('barHeight');
-				
+
 			x = Math.min(width, x);
 			y = Math.min(height, y);
 			y = Math.max(0, y);
@@ -624,7 +625,7 @@ Y.extend(ColorPicker, Y.Widget, {
 			// get position within the square
 			x = ev.clientX + scrollX - offXY[0],
 			y = ev.clientY + scrollY - offXY[1];
-			
+
 		this.squareX = x;
 		this.squareY = y;
 		this.startUpdating();
@@ -638,24 +639,26 @@ Y.extend(ColorPicker, Y.Widget, {
 			barHeight = this.get('barHeight'),
 			cacheBars = this.get('cacheBars'),
 			ctx = this.hCanvas.getContext('2d');
-			
-		// clear the bars			
+
+		// clear the bars
 		ctx.clearRect(0, 0, barWidth + this.barPaddingX * 2, barHeight + this.barPaddingY * 2);
 		ctx = this.sCanvas.getContext('2d');
 		ctx.clearRect(0, 0, barWidth + this.barPaddingX * 2, barHeight + this.barPaddingY * 2);
 		ctx = this.lCanvas.getContext('2d');
 		ctx.clearRect(0, 0, barWidth + this.barPaddingX * 2, barHeight + this.barPaddingY * 2);
-		
+
 		if (cacheBars) {
 			// render bars using cached pixel arrays if possible (uses more memory)
 			if (!this.sCachePixels[this.color.h]) {
-				this.sCachePixels[this.color.h] = this.renderPixels(this.sCanvas, barWidth, barHeight, this.barPaddingX, this.barPaddingY, 'h', this.color.h, 'l', 's', 50, 100, 50, 0);
+				this.sCachePixels[this.color.h] = this.renderPixels(this.sCanvas, barWidth, barHeight,
+					this.barPaddingX, this.barPaddingY, 'h', this.color.h, 'l', 's', 50, 100, 50, 0);
 			} else {
 				ctx = this.sCanvas.getContext('2d');
 				ctx.putImageData(this.sCachePixels[this.color.h], this.barPaddingX, this.barPaddingY);
 			}
 			if (!this.lCachePixels[this.color.h]) {
-				this.lCachePixels[this.color.h] = this.renderPixels(this.lCanvas, barWidth, barHeight, this.barPaddingX, this.barPaddingY, 'h', this.color.h, 's', 'l', 100, 100, 100, 0);
+				this.lCachePixels[this.color.h] = this.renderPixels(this.lCanvas, barWidth, barHeight,
+					this.barPaddingX, this.barPaddingY, 'h', this.color.h, 's', 'l', 100, 100, 100, 0);
 			} else {
 				ctx = this.lCanvas.getContext('2d');
 				ctx.putImageData(this.lCachePixels[this.color.h], this.barPaddingX, this.barPaddingY);
@@ -665,7 +668,8 @@ Y.extend(ColorPicker, Y.Widget, {
 			this.renderPixels(this.lCanvas, barWidth, barHeight, this.barPaddingX, this.barPaddingY, 'h', this.color.h, 's', 'l', 1.0, 1.0, 1.0, 0);
 		}
 		if (!this.huePixelCache) {
-			this.huePixelCache = this.renderPixels(this.hCanvas, barWidth, barHeight, this.barPaddingX, this.barPaddingY, 's', 1.0, 'l', 'h', 0.5, 0, 0.5, 1.0);
+			this.huePixelCache = this.renderPixels(this.hCanvas, barWidth, barHeight, this.barPaddingX,
+				this.barPaddingY, 's', 1.0, 'l', 'h', 0.5, 0, 0.5, 1.0);
 		} else {
 			ctx = this.hCanvas.getContext('2d');
 			ctx.putImageData(this.huePixelCache, this.barPaddingX, this.barPaddingY);
@@ -680,7 +684,7 @@ Y.extend(ColorPicker, Y.Widget, {
 			y = (height / max) * (value),
 			col = baseColor,
 			rgb;
-			
+
 		if (reverse) {
 			y = height - y;
 		}
@@ -708,20 +712,20 @@ Y.extend(ColorPicker, Y.Widget, {
 		ctx.strokeStyle = "rgb(" + rgb.r + ", " + rgb.g + ", " + rgb.b + ")";
 		ctx.lineWidth = 0.5;
 		ctx.stroke();
-		
+
 		// draw the triangles
 		ctx.beginPath();
-		
+
 		ctx.moveTo(this.barPaddingX, y);
 		ctx.lineTo(0, y - 2.5);
 		ctx.lineTo(0, y + 2.5);
 		ctx.lineTo(this.barPaddingX, y);
-		
+
 		ctx.moveTo(width + this.barPaddingX, y);
 		ctx.lineTo(width + this.barPaddingX * 2, y - 2.5);
 		ctx.lineTo(width + this.barPaddingX * 2, y + 2.5);
 		ctx.lineTo(width + this.barPaddingX, y);
-		
+
 		ctx.strokeStyle = "rgb(255, 255, 255)";
 		ctx.fillStyle = "rgb(255, 255, 255)";
 		ctx.stroke();
@@ -738,13 +742,13 @@ Y.extend(ColorPicker, Y.Widget, {
 			this.sVal.set('value', Math.round(this.color.s * 100));
 			this.lVal.set('value', Math.round(this.color.l * 100));
 		}
-		
+
 		if (this.get('showRGB')) {
 			this.rVal.set('value', rgb.r);
 			this.gVal.set('value', rgb.g);
 			this.bVal.set('value', rgb.b);
 		}
-		if (this.get('showHEX')) {				
+		if (this.get('showHEX')) {
 			hexColor = this.get('hex');
 			this.hexVal.set('value', hexColor);
 		}
@@ -782,7 +786,8 @@ Y.extend(ColorPicker, Y.Widget, {
 		var width = this.get('squareWidth'), height = this.get('squareHeight'),
 			ctx = this.squareCanvas.getContext('2d'), radius, x, y;
 		if (!this.squareCachePixels[this.color.s]) {
-			this.squareCachePixels[this.color.s] = this.renderPixels(this.squareCanvas, width, height, 0, 0, 's', this.color.s, 'h', 'l', 0, 1.0, 1.0, 0);
+			this.squareCachePixels[this.color.s] = this.renderPixels(this.squareCanvas, width, height,
+				0, 0, 's', this.color.s, 'h', 'l', 0, 1.0, 1.0, 0);
 		} else {
 			ctx.putImageData(this.squareCachePixels[this.color.s], 0, 0);
 		}
@@ -806,11 +811,11 @@ Y.extend(ColorPicker, Y.Widget, {
 		this.contentBox.appendChild(div);
 		return Y.Node.getDOMNode(canvas);
 	},
-	
+
 	createValue: function (className, label, value, size, maxLength, target, component) {
 		var div = Y.Node.create("<div class='" + ColorPicker.CLASSNAME_VALUE + " " + className + "'></div>"),
 			input = Y.Node.create("<input type='text' size='" + size + "' maxlength='" + maxLength + "' value='" + value + "'></input>");
-			
+
 		label = Y.Node.create("<label>" + label + "</label>");
 		div.appendChild(label);
 		label.appendChild(input);
@@ -845,20 +850,20 @@ Y.extend(ColorPicker, Y.Widget, {
 	},
 	onInputKeyUp: function (ev) {
 		// filter out everything except numbers
-		// update RGB values 
+		// update RGB values
 		// filter it out
 		// use data in target object
 		var input = ev.target,
 			target = input.getData('target'),
 			component = input.getData('component'),
-		
+
 			inputValue = input.get('value'),
 			value;
-			
+
 		if (inputValue === '') {
 			return;
 		}
-		
+
 		if (target === 'hex') {
 			if (inputValue.length < 6) {
 				return;
@@ -867,11 +872,11 @@ Y.extend(ColorPicker, Y.Widget, {
 			this.set(target, inputValue);
 			return;
 		}
-		
+
 		// get current value using the target
 		value = this.get(target);
 		value[component] = parseInt(inputValue, 10);
-		
+
 		this.set(target, value);
 	},
 	onInputBlur: function () {
@@ -901,17 +906,18 @@ Y.ColorPicker = ColorPicker;
 /**
 * ColorPalette provides a simple interface for storing and reusing selected colors. It can be coupled with the ColorPicker widget to provide
 * a simple history of selected colors.
-* 
+*
 * @namespace Y
 * @class ColorPalette
 */
 function ColorPalette() {
 	ColorPalette.superclass.constructor.apply(this, arguments);
-	
+
 	/**
 	* An event fired when a color in the palette is clicked upon.
 	* @event palette:selected
-	* @param {Object} color An object containing the color in RGB and HSL format e.g. <code>&#123; rgb: &#123; r: 255, g: 0, b: 0 &#125;, hsl: &#123; h: 1.0, s: 0.5, l: 1.0 &#125; &#125;</code>
+	* @param {Object} color An object containing the color in RGB and HSL format e.g.
+	* <code>&#123; rgb: &#123; r: 255, g: 0, b: 0 &#125;, hsl: &#123; h: 1.0, s: 0.5, l: 1.0 &#125; &#125;</code>
 	*/
 	this.publish("palette:selected");
 }
@@ -932,7 +938,7 @@ Y.extend(ColorPalette, Y.Widget, {
 	* @default []
 	*/
 	colors: [],
-	
+
 	/**
 	* Returns true if the specified color (in HSL float object format) already exists in the palette
 	* @method colorExists
@@ -967,9 +973,9 @@ Y.extend(ColorPalette, Y.Widget, {
 		div.setData('hsl', col);
 		contentBox.appendChild(div);
 		this.colors.push(col);
-	},	
+	},
 	renderUI: function () {
-		
+
 	},
 	bindUI: function () {
 		Y.delegate('click', this.onSwatchClick, this.get('contentBox'), '.' + ColorPalette.CLASSNAME_SWATCH, this);
@@ -987,7 +993,7 @@ Y.extend(ColorPalette, Y.Widget, {
 		this.fire('palette:selected', {hsl: hsl, rgb: rgb});
 	},
 	syncUI: function () {
-	
+
 	}
 });
 Y.ColorPalette = ColorPalette;
